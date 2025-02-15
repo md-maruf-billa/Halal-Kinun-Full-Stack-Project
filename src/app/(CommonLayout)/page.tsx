@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import React from 'react';
 
-const HomePage = () => {
+const CommonLayoutHomePage = () => {
   return (
     <div>
       <Button>Click me</Button>
@@ -10,4 +10,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default CommonLayoutHomePage;
