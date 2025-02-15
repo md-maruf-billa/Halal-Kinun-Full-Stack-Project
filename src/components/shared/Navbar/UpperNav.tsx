@@ -10,6 +10,7 @@ import {
       SelectValue,
 } from "@/components/ui/select"
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const UpperNav = () => {
       return (
@@ -46,7 +47,7 @@ const UpperNav = () => {
                                     </SelectContent>
                               </Select>
 
-                              <Button className='bg-[#2388ff]'>Sign Up</Button>
+                              <Link href={"/register"}><Button className='bg-[#2388ff]'>Sign Up</Button></Link>
                               <Button>Sign In</Button>
                         </div>
 
