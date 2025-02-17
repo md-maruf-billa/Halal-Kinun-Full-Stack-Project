@@ -48,7 +48,7 @@ const UpperNav = () => {
                               </Select>
 
                               <Link href={"/register"}><Button className='bg-[#2388ff]'>Sign Up</Button></Link>
-                              <Button>Sign In</Button>
+                              <Link href={"/login"}>  <Button>Sign In</Button></Link>
                         </div>
 
                   </div>

@@ -4,35 +4,22 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import logo from "@/assets/icons/logo.png"
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registerFormValidation } from './registerFormValidation';
-import { reCaptchaTokenVerification, registerUser } from '@/services/authService';
+import { loginUser } from '@/services/authService';
 import { toast } from 'sonner';
-import ReCAPTCHA from "react-google-recaptcha";
+import { logingFormValidation } from './loginFormValidation';
 
-const RegisterForm = () => {
-      const [rechaptchaValidation, setRechaptchaValidation] = useState<boolean>(false);
-      // rechaptcha validation
-      const rechaptchValidation = async (data: any) => {
-            const validate = await reCaptchaTokenVerification(data)
-            if (validate?.success) {
-                  setRechaptchaValidation(true)
-            } else {
-                  setRechaptchaValidation(false)
-            }
-      }
-
-
+const LoginForm = () => {
       const form = useForm({
-            resolver: zodResolver(registerFormValidation)
+            resolver: zodResolver(logingFormValidation)
       })
       const { formState: { isSubmitting } } = form
       const onSubmit: SubmitHandler<FieldValues> = async (data) => {
             try {
-                  const res = await registerUser(data)
+                  const res = await loginUser(data)
                   if (res.success) {
                         toast.success(res.message)
                   } else {
@@ -52,31 +39,18 @@ const RegisterForm = () => {
                                     height={60}
                                     alt='Halal kinun'
                               />
-                              <h1 className='text-3xl mb-6 font-bold text-customBlack text-center'>Create Account</h1>
+                              <h1 className='text-3xl mb-6 font-bold text-customBlack text-center'>Sign In</h1>
                         </div>
                         <Form {...form}>
                               <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
                                     <FormField
                                           control={form.control}
-                                          name="name"
-                                          render={({ field }) => (
-                                                <FormItem>
-                                                      <FormLabel >Enter Your Name</FormLabel>
-                                                      <FormControl>
-                                                            <Input type='text' placeholder="Name" {...field} value={field.value || ""} />
-                                                      </FormControl>
-                                                      <FormMessage />
-                                                </FormItem>
-                                          )}
-                                    />
-                                    <FormField
-                                          control={form.control}
                                           name="email"
                                           render={({ field }) => (
                                                 <FormItem>
-                                                      <FormLabel >Enter Your Email</FormLabel>
+                                                      <FormLabel >Enter Email</FormLabel>
                                                       <FormControl>
-                                                            <Input type='email' placeholder="Email" {...field} value={field.value || ""} />
+                                                            <Input type='text' placeholder="Email" {...field} value={field.value || ""} />
                                                       </FormControl>
                                                       <FormMessage />
                                                 </FormItem>
@@ -87,7 +61,7 @@ const RegisterForm = () => {
                                           name="password"
                                           render={({ field }) => (
                                                 <FormItem>
-                                                      <FormLabel >Enter Your Password</FormLabel>
+                                                      <FormLabel >Enter Password</FormLabel>
                                                       <FormControl>
                                                             <Input type='password' placeholder="Password" {...field} value={field.value || ""} />
                                                       </FormControl>
@@ -95,15 +69,9 @@ const RegisterForm = () => {
                                                 </FormItem>
                                           )}
                                     />
-                                    <div className='flex justify-center items-center w-full'>
-                                          <ReCAPTCHA
-                                                sitekey={process.env.NEXT_PUBLIC_RECHAPTCHA_KEY!}
-                                                onChange={rechaptchValidation}
-                                          />
-                                    </div>
-                                    <Button disabled={!rechaptchaValidation} type='submit' className='w-full rounded-full'>{isSubmitting ? "Creating....." : "Create Account"}</Button>
+                                    <Button type='submit' className='w-full rounded-full'>{isSubmitting ? "Loging....." : "Loging Now"}</Button>
                               </form>
-                              <p className='text-customSecondary mt-6 text-center'>Already have account <Link href={"/login"} className='text-customPrimary font-bold hover:underline'>Login</Link></p>
+                              <p className='text-customSecondary mt-6 text-center'>Don’t have account?<Link href={"/register"} className='text-customPrimary font-bold hover:underline'>Register</Link></p>
                         </Form>
                   </div>
 
@@ -111,4 +79,4 @@ const RegisterForm = () => {
       );
 };
 
-export default RegisterForm;
+export default LoginForm;
