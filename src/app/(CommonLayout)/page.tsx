@@ -1,5 +1,6 @@
 import Banner from '@/components/modules/home/Banner';
-import { Button } from '@/components/ui/button';
+import HomePopularCategories from '@/components/modules/home/HomePagePopularCategories';
+import HomepageServices from '@/components/modules/home/HomeServices';
 import { getLogeduser } from '@/services/authService';
 import React from 'react';
 
@@ -9,6 +10,8 @@ const CommonLayoutHomePage = async () => {
   return (
     <div>
       <Banner />
+      <HomepageServices />
+      <HomePopularCategories />
     </div>
   );
 };

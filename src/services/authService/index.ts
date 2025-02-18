@@ -61,3 +61,13 @@ export const reCaptchaTokenVerification = async (token: string) => {
     return Error(err)
   }
 }
+
+export const logOutUser = async () => {
+  try {
+    ;(await cookies()).delete('accessToken')
+    return true
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
