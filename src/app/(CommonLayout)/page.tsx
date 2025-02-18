@@ -1,3 +1,4 @@
+import Banner from '@/components/modules/home/Banner';
 import { Button } from '@/components/ui/button';
 import { getLogeduser } from '@/services/authService';
 import React from 'react';
@@ -7,8 +8,7 @@ const CommonLayoutHomePage = async () => {
   console.log(user)
   return (
     <div>
-      <Button>Click me</Button>
-      Hi every one
+      <Banner />
     </div>
   );
 };
